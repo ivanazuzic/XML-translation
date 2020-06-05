@@ -2,6 +2,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
 
+import Tag 1.0
+
 Column{
     width: parent.width
     height: parent.height
@@ -23,27 +25,8 @@ Column{
                     implicitHeight: 250
                     clip: true
 
-                    model: ListModel {
-                        ListElement{
-                            tag: "text"
-                            original: "Pas"
-                            translation: "Dog"
-                        }
-                        ListElement{
-                            tag: "text"
-                            original: "Ana voli Milovana"
-                            translation: "Ana loves Milovan"
-                        }
-                        ListElement{
-                            tag: "text"
-                            original: "Macka"
-                            translation: "Cat"
-                        }
-                        ListElement{
-                            tag: "text"
-                            original: "Macka"
-                            translation: "Cat"
-                        }
+                    model: TagModel{
+                        list: tagList
                     }
 
                     delegate: Component {
@@ -71,8 +54,8 @@ Column{
                     }
                     onCurrentItemChanged: {
                         selectedItemID = list.currentIndex
-                        originalValue = list.model.get(list.currentIndex).original;
-                        translation = list.model.get(list.currentIndex).translation;
+                        //originalValue = list.model.get(list.currentIndex).original;
+                        //translation = list.model.get(list.currentIndex).translation;
                     }
                 }
             }
