@@ -12,21 +12,43 @@ ApplicationWindow {
     title: qsTr("XML translation")
 
     FileDialog {
-        id: fileDialog
-        title: "Please choose a file"
+        id: fileOpenDialog
+        title: "Open"
         folder: shortcuts.home
         onAccepted: {
-            var path = fileDialog.fileUrl.toString();
+            var path = fileOpenDialog.fileUrl.toString();
             // remove prefixed "file://"
             path = path.replace(/^(file:\/{2})/,"");
             // unescape html codes like '%23' for '#'
             console.log(decodeURIComponent(path));
             tagList.openList(decodeURIComponent(path))
-            fileDialog.close()
+            fileOpenDialog.close()
         }
         onRejected: {
             console.log("Canceled")
-            fileDialog.close()
+            fileOpenDialog.close()
+        }
+        Component.onCompleted: visible = false
+        selectMultiple: false
+        nameFilters: [ "XML files (*.xml)" ]
+    }
+
+    FileDialog {
+        id: fileSaveDialog
+        title: "Save"
+        folder: shortcuts.home
+        onAccepted: {
+            var path = fileSaveDialog.fileUrl.toString();
+            // remove prefixed "file://"
+            path = path.replace(/^(file:\/{2})/,"");
+            // unescape html codes like '%23' for '#'
+            console.log(decodeURIComponent(path));
+            tagList.saveList(decodeURIComponent(path))
+            fileSaveDialog.close()
+        }
+        onRejected: {
+            console.log("Canceled")
+            fileSaveDialog.close()
         }
         Component.onCompleted: visible = false
         selectMultiple: false
@@ -38,10 +60,11 @@ ApplicationWindow {
             title: qsTr("&File")
             Action {
                 text: qsTr("&Open...")
-                onTriggered: fileDialog.open() //tagList.openList()
+                onTriggered: fileOpenDialog.open() //tagList.openList()
             }
             Action {
                 text: qsTr("&Save")
+                onTriggered: fileSaveDialog.open() //tagList.openList()
             }
             Action {
                 text: qsTr("Save &As...")

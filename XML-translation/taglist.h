@@ -25,6 +25,7 @@ public:
         loadItems(m_source.toUtf8().constData());
     }
     Q_INVOKABLE void saveList() {
+
     }
 
     Q_INVOKABLE void saveListAs() {
