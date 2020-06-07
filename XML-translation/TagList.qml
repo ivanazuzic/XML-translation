@@ -39,15 +39,41 @@ Column{
                             property int itemIndex: index
                             RowLayout{
                                 id: tagrow
-                                Text { text: tag }
-                                Text { text: original }
-                                Text { text: translation }
+                                Text {
+                                    id: currtag
+                                    text: tag
+                                }
+                                Text {
+                                    id: curroriginal
+                                    text: original
+                                }
+                                Text {
+                                    id: currtranslation
+                                    text: translation
+                                }
                             }
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
                                     view.currentIndex = itemIndex;
                                     //list.model.setProperty(itemIndex, "tag", "cost * 2")
+                                    //console.log(list.model.rowCount())
+                                    //console.log(currtag.text)
+                                    list.originalValue = curroriginal.text
+                                    list.translation = currtranslation.text
+
+                                    // Column is always zero as it's a list
+                                    var column_number = 0;
+                                    // get `QModelIndex`
+                                    var q_model_index = list.model.index(index, column_number);
+
+                                    // see for list of roles:
+                                    // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
+                                    var role = 2
+
+                                    var data_changed = list.model.setData(q_model_index, "3", role);
+
+                                    console.log("data change successful?", data_changed);
                                 }
                             }
                         }
@@ -76,7 +102,7 @@ Column{
                 height: 0.5 * parent.height
                 TextField{
                     text: list.translation
-                    onEditingFinished: list.model.setProperty(list.currentIndex, "translation", text)
+                    onEditingFinished: list.model.setData() //list.model.setProperty(list.currentIndex, "translation", text)
                 }
             }
 
