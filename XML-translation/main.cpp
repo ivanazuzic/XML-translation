@@ -41,6 +41,9 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    app.setOrganizationName("name");
+    app.setOrganizationDomain("name");
+
     qmlRegisterType<TagModel>("Tag", 1, 0, "TagModel");
     qmlRegisterUncreatableType<TagList>("Tag", 1, 0, "TagList", QStringLiteral("TagList should not be created in QML"));
 

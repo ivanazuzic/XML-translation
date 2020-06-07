@@ -49,9 +49,9 @@ void TagList::removeItems()
     }
 }
 
-void TagList::loadItems()
+void TagList::loadItems(std::string m_source)
 {
-    std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
+    //std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
     pugi::xml_document m_doc;
     pugi::xml_node m_root;
 

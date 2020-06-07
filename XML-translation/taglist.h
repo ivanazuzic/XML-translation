@@ -20,9 +20,9 @@ public:
     Q_INVOKABLE void gimmeText() {
         qDebug() << "new text";
     }
-    Q_INVOKABLE void openList() {
+    Q_INVOKABLE void openList(QString m_source) {
         removeItems();
-        loadItems();
+        loadItems(m_source.toUtf8().constData());
     }
     Q_INVOKABLE void saveList() {
     }
@@ -46,7 +46,7 @@ signals:
 public slots:
     void appendItem(QString tag, QString original, QString translation);
     void removeItems();
-    void loadItems();
+    void loadItems(std::string m_source);
 
 private:
     QVector<TagItem> mItems;
