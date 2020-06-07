@@ -16,7 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         taglist.cpp \
-        tagmodel.cpp
+        tagmodel.cpp \
+        pugixml.cpp
 
 RESOURCES += qml.qrc
 

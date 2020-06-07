@@ -2,9 +2,9 @@
 
 TagList::TagList(QObject *parent) : QObject(parent)
 {
-    mItems.append({QStringLiteral("a"), QStringLiteral("sadfgsa"), QStringLiteral("fgshjtukfdjhbsg")});
+    /*mItems.append({QStringLiteral("a"), QStringLiteral("sadfgsa"), QStringLiteral("fgshjtukfdjhbsg")});
     mItems.append({QStringLiteral("tekst"), QStringLiteral("macka"), QStringLiteral("cat")});
-    mItems.append({QStringLiteral("img"), QStringLiteral("pas"), QStringLiteral("dog")});
+    mItems.append({QStringLiteral("img"), QStringLiteral("pas"), QStringLiteral("dog")});*/
 }
 
 QVector<TagItem> TagList::items() const
@@ -25,7 +25,15 @@ bool TagList::setItemAt(int index, const TagItem &item)
     return true;
 }
 
-void TagList::appendItem()
+void TagList::appendItem(QString tag, QString original, QString translation)
 {
+    emit preItemAppended();
 
+    TagItem item;
+    item.tag = tag;
+    item.original = original;
+    item.translation = translation;
+    mItems.append(item);
+
+    emit postItemAppended();
 }

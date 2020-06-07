@@ -29,7 +29,7 @@ signals:
     void postItemRemoved();
 
 public slots:
-    void appendItem();
+    void appendItem(QString tag, QString original, QString translation);
 
 private:
     QVector<TagItem> mItems;
