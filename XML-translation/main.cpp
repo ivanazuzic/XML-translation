@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDebug>
+#include <QQuickStyle>
 
 #include "taglist.h"
 #include "tagmodel.h"
@@ -43,6 +44,8 @@ int main(int argc, char *argv[])
 
     app.setOrganizationName("name");
     app.setOrganizationDomain("name");
+
+    QQuickStyle::setStyle("Material");
 
     qmlRegisterType<TagModel>("Tag", 1, 0, "TagModel");
     qmlRegisterUncreatableType<TagList>("Tag", 1, 0, "TagList", QStringLiteral("TagList should not be created in QML"));

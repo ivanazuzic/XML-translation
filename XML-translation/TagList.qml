@@ -27,8 +27,8 @@ Column {
                     property int selectedItemID
                     property string originalValue
                     property string translation
-                    implicitWidth: 250
-                    implicitHeight: 250
+                    implicitWidth: parent.width
+                    implicitHeight: parent.height
                     clip: true
 
                     model: TagModel{
@@ -39,7 +39,7 @@ Column {
                         Rectangle {
                             height: tagrow.height
                             width: parent.width
-                            color:  ListView.isCurrentItem ? "lightsteelblue" : "white"
+                            color:  ListView.isCurrentItem ? "lightsteelblue" : "transparent"
                             radius: 5
                             property var view: ListView.view
                             property int itemIndex: index
@@ -48,14 +48,21 @@ Column {
                                 Text {
                                     id: currtag
                                     text: tag
+                                    color: "blue"
+                                    font.family: "Helvetica"
+                                    font.pointSize: 12
                                 }
                                 Text {
                                     id: curroriginal
                                     text: original
+                                    font.family: "Helvetica"
+                                    font.pointSize: 12
                                 }
                                 Text {
                                     id: currtranslation
                                     text: translation
+                                    font.family: "Helvetica"
+                                    font.pointSize: 12
                                 }
                             }
                             MouseArea {
@@ -106,18 +113,29 @@ Column {
                 width: parent.width
                 height: 0.4 * parent.height
                 Text{
+                    font.family: "Helvetica"
+                    font.pointSize: 12
                     text: list.originalValue
                 }
             }
             Frame {
                 width: parent.width
                 height: 0.4 * parent.height
-                TextArea{
-                    id: translationfield
+                ScrollView {
+                    id: translationScrollView
                     width: parent.width
                     height: parent.height
-                    text: list.translation
-                    //onEditingFinished: list.model.setData(list.currentIndex, "3", 2) //list.model.setProperty(list.currentIndex, "translation", text)
+                    TextArea{
+                        id: translationfield
+                        width: parent.width
+                        height: parent.height
+                        placeholderText: qsTr("Enter translation")
+                        text: list.translation
+                        wrapMode: TextArea.WordWrap
+                        font.family: "Helvetica"
+                        font.pointSize: 12
+                        //onEditingFinished: list.model.setData(list.currentIndex, "3", 2) //list.model.setProperty(list.currentIndex, "translation", text)
+                    }
                 }
             }
             Row {
