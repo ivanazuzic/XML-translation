@@ -82,10 +82,18 @@ ApplicationWindow {
             }
         }
     }
-
-    TagList{
+    Column {
         width: parent.width
         height: parent.height
+        /*TagList{
+            width: parent.width
+            height: 0.5 * parent.height
+        }*/
+
+        TagTable {
+            width: parent.width
+            height: parent.height
+        }
     }
 
 }

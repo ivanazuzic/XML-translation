@@ -1,5 +1,7 @@
-QT += quick \
-    quickcontrols2
+QT += \
+    quick \
+    quickcontrols2 \ # for styles
+    core # for QSortFilterProxyModel
 
 CONFIG += c++11
 
