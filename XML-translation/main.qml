@@ -2,6 +2,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
 
+//import Tag 1.0
+
 ApplicationWindow {
     visible: true
     width: 640
@@ -11,22 +13,26 @@ ApplicationWindow {
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")
-            Action { text: qsTr("&New...") }
-            Action { text: qsTr("&Open...") }
-            Action { text: qsTr("&Save") }
-            Action { text: qsTr("Save &As...") }
+            Action {
+                text: qsTr("&Open...")
+                onTriggered: tagList.removeItems()
+            }
+            Action {
+                text: qsTr("&Save")
+            }
+            Action {
+                text: qsTr("Save &As...")
+            }
             MenuSeparator { }
-            Action { text: qsTr("&Quit") }
-        }
-        Menu {
-            title: qsTr("&Edit")
-            Action { text: qsTr("Cu&t") }
-            Action { text: qsTr("&Copy") }
-            Action { text: qsTr("&Paste") }
+            Action {
+                text: qsTr("&Quit")
+            }
         }
         Menu {
             title: qsTr("&Help")
-            Action { text: qsTr("&About") }
+            Action {
+                text: qsTr("&About")
+            }
         }
     }
 

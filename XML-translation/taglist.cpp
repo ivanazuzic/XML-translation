@@ -37,3 +37,14 @@ void TagList::appendItem(QString tag, QString original, QString translation)
 
     emit postItemAppended();
 }
+
+void TagList::removeItems()
+{
+    for (int i = mItems.size()-1; i >= 0; i--) {
+        emit preItemRemoved(i);
+
+        mItems.removeAt(i);
+
+        emit postItemRemoved();
+    }
+}

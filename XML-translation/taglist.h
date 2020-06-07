@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QVector>
+#include <QDebug>
 
 struct TagItem
 {
@@ -15,6 +16,12 @@ class TagList : public QObject
 {
     Q_OBJECT
 public:
+    Q_INVOKABLE void gimmeText() {
+                qDebug() << "new text";
+        }
+    Q_INVOKABLE void clearList() {
+                removeItems();
+        }
     explicit TagList(QObject *parent = nullptr);
 
     QVector<TagItem> items() const;
@@ -30,6 +37,7 @@ signals:
 
 public slots:
     void appendItem(QString tag, QString original, QString translation);
+    void removeItems();
 
 private:
     QVector<TagItem> mItems;
