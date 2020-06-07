@@ -59,21 +59,10 @@ Column{
                                     //list.model.setProperty(itemIndex, "tag", "cost * 2")
                                     //console.log(list.model.rowCount())
                                     //console.log(currtag.text)
-                                    list.originalValue = curroriginal.text
-                                    list.translation = currtranslation.text
+                                    //list.originalValue = curroriginal.text
+                                    //list.translation = currtranslation.text
 
-                                    // Column is always zero as it's a list
-                                    var column_number = 0;
-                                    // get `QModelIndex`
-                                    var q_model_index = list.model.index(index, column_number);
 
-                                    // see for list of roles:
-                                    // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
-                                    var role = 2
-
-                                    var data_changed = list.model.setData(q_model_index, "3", role);
-
-                                    console.log("data change successful?", data_changed);
                                 }
                             }
                         }
@@ -82,6 +71,23 @@ Column{
                         selectedItemID = list.currentIndex
                         //originalValue = list.model.get(list.currentIndex).original;
                         //translation = list.model.get(list.currentIndex).translation;
+
+                        // Column is always zero as it's a list
+                        var column_number = 0;
+                        // get `QModelIndex`
+                        var q_model_index = list.model.index(selectedItemID, column_number);
+
+                        // see for list of roles:
+                        // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
+                        var role = 1
+
+                        //var data_changed = list.model.setData(q_model_index, "3", role);
+
+                        originalValue = list.model.data(q_model_index, 1);
+                        translation = list.model.data(q_model_index, 2);
+                        console.log(originalValue)
+                        console.log(translation)
+                        translationfield.text = translation
                     }
                 }
             }
@@ -92,17 +98,59 @@ Column{
             height: parent.height
             Frame {
                 width: parent.width
-                height: 0.5 * parent.height
+                height: 0.4 * parent.height
                 Text{
                     text: list.originalValue
                 }
             }
             Frame {
                 width: parent.width
-                height: 0.5 * parent.height
+                height: 0.4 * parent.height
                 TextField{
+                    id: translationfield
+                    width: parent.width
+                    height: parent.height
                     text: list.translation
-                    onEditingFinished: list.model.setData() //list.model.setProperty(list.currentIndex, "translation", text)
+                    //onEditingFinished: list.model.setData(list.currentIndex, "3", 2) //list.model.setProperty(list.currentIndex, "translation", text)
+                }
+            }
+            Row {
+                width: parent.width
+                height: 0.2 * parent.height
+                Button {
+                    width: 0.5 * parent.width
+                    height: parent.height
+                    text: "Confirm"
+                    onClicked: {
+                        // Column is always zero as it's a list
+                        var column_number = 0;
+                        // get `QModelIndex`
+                        var q_model_index = list.model.index(list.currentIndex, column_number);
+
+                        // see for list of roles:
+                        // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
+                        var role = 2
+
+                        var data_changed = list.model.setData(q_model_index, translationfield.text, role);
+                    }
+                }
+                Button {
+                    width: 0.5 * parent.width
+                    height: parent.height
+                    text: "Reset"
+                    onClicked: {
+                        // Column is always zero as it's a list
+                        var column_number = 0;
+                        // get `QModelIndex`
+                        var q_model_index = list.model.index(list.currentIndex, column_number);
+
+                        // see for list of roles:
+                        // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
+                        var role = 2
+
+                        var data_changed = list.model.setData(q_model_index, "", role);
+                        translationfield.text = ""
+                    }
                 }
             }
 
