@@ -48,3 +48,38 @@ void TagList::removeItems()
         emit postItemRemoved();
     }
 }
+
+void TagList::loadItems()
+{
+    std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
+    pugi::xml_document m_doc;
+    pugi::xml_node m_root;
+
+    pugi::xml_parse_result result = m_doc.load_file(m_source.c_str(),
+        pugi::parse_default|pugi::parse_declaration);
+    if (!result)
+    {
+        qDebug() << "Parse error: " << result.description()
+            << ", character pos= " << result.offset;
+    }
+    // A valid XML document must have a single root node
+    m_root = m_doc.document_element();
+
+    qDebug() << "Load result: " << result.description();
+
+    //readXML(m_source, m_doc, m_root);
+    dfs(m_doc);
+}
+
+void TagList::dfs(pugi::xml_node root) {
+    if (root.parent() && strlen(root.name()) == 0) {
+        //qDebug() << root.parent().name() << "-" << root.text().as_string();
+        QString parent = root.parent().name();
+        appendItem(parent, root.text().as_string(), "");
+    }
+    for (auto child:root.children()) {
+        dfs(child);
+    }
+}
+
+

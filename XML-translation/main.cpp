@@ -7,7 +7,7 @@
 #include "tagmodel.h"
 #include "pugixml.hpp"
 
-void dfs(TagList &results, pugi::xml_node root) {
+/*void dfs(TagList &results, pugi::xml_node root) {
     if (root.parent() && strlen(root.name()) == 0) {
         //qDebug() << root.parent().name() << "-" << root.text().as_string();
         QString parent = root.parent().name();
@@ -33,7 +33,7 @@ void readXML(std::string m_source, pugi::xml_document m_doc, pugi::xml_node m_ro
     m_root = m_doc.document_element();
 
     qDebug() << "Load result: " << result.description();
-}
+}*/
 
 int main(int argc, char *argv[])
 {
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     TagList tagList;
     //tagList.appendItem("tag", "original", "/");
 
-    std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
+    /*std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
     pugi::xml_document m_doc;
     pugi::xml_node m_root;
 
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
     qDebug() << "Load result: " << result.description();
 
     //readXML(m_source, m_doc, m_root);
-    dfs(tagList, m_doc);
+    dfs(tagList, m_doc);*/
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty(QStringLiteral("tagList"), &tagList);

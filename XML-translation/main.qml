@@ -15,7 +15,7 @@ ApplicationWindow {
             title: qsTr("&File")
             Action {
                 text: qsTr("&Open...")
-                onTriggered: tagList.removeItems()
+                onTriggered: tagList.openList()
             }
             Action {
                 text: qsTr("&Save")
