@@ -4,18 +4,24 @@ import QtQuick.Layouts 1.3
 
 import Tag 1.0
 
-Column{
+Column {
     width: parent.width
     height: parent.height
-    Row{
+    Row {
         width: parent.width
         height: parent.height
-        Column{
+        Column {
             width: parent.width * 0.5
             height: parent.height
+            TextField {
+                width: parent.width
+                height: 0.1 * parent.height
+                id: filtering
+            }
+
             Frame {
                 width: parent.width
-                height: parent.height
+                height: 0.9 * parent.height
                 ListView {
                     id: list
                     property int selectedItemID
@@ -106,7 +112,7 @@ Column{
             Frame {
                 width: parent.width
                 height: 0.4 * parent.height
-                TextField{
+                TextArea{
                     id: translationfield
                     width: parent.width
                     height: parent.height
