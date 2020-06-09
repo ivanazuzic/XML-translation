@@ -21,9 +21,9 @@ public:
         qDebug() << "new text";
     }
     Q_INVOKABLE void openList(QString path) {
+        clearAll();
         m_path = path;
         m_source = m_path.toUtf8().constData();
-        clearAll();
         loadItems();
     }
     Q_INVOKABLE void saveList() {
@@ -52,6 +52,7 @@ public slots:
     void removeItems();
     void loadItems();
     void clearAll();
+    bool modified();
 
 private:
     QVector<TagItem> mItems;

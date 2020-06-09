@@ -5,7 +5,7 @@ TagList::TagList(QObject *parent) : QObject(parent)
     /*mItems.append({QStringLiteral("a"), QStringLiteral("sadfgsa"), QStringLiteral("fgshjtukfdjhbsg")});
     mItems.append({QStringLiteral("tekst"), QStringLiteral("macka"), QStringLiteral("cat")});
     mItems.append({QStringLiteral("img"), QStringLiteral("pas"), QStringLiteral("dog")});*/
-    m_path = "";
+    clearAll();
 }
 
 QVector<TagItem> TagList::items() const
@@ -78,6 +78,16 @@ void TagList::clearAll()
     mNodes.clear();
     m_path = "";
     m_source = "";
+}
+
+bool TagList::modified()
+{
+    for (int i = mItems.size()-1; i >= 0; i--) {
+        if (mItems[i].translation != "") {
+            return true;
+        }
+    }
+    return false;
 }
 
 void TagList::dfs(pugi::xml_node root) {

@@ -55,12 +55,34 @@ ApplicationWindow {
         nameFilters: [ "XML files (*.xml)" ]
     }
 
+    MessageDialog {
+        id: discardChangesDialog
+        title: "Discard changes?"
+        icon: StandardIcon.Question
+        text: "The file was changed. Are you sure you want to discard changes?"
+        detailedText: "If you choose Yes, your changes will be discarded. If you choose No you will be able to keep editing the file."
+        standardButtons: StandardButton.Yes | StandardButton.No
+        Component.onCompleted: visible = false
+        onYes: {
+            fileOpenDialog.open()
+            discardChangesDialog.close()
+        }
+        onNo: discardChangesDialog.close()
+    }
+
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")
             Action {
                 text: qsTr("&Open...")
-                onTriggered: fileOpenDialog.open() //tagList.openList()
+                onTriggered: {
+                    console.log(tagList.modified())
+                    if (tagList.modified()){
+                        discardChangesDialog.open()
+                    } else {
+                        fileOpenDialog.open() //tagList.openList()
+                    }
+                }
             }
             Action {
                 text: qsTr("&Save")
