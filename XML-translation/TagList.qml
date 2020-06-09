@@ -35,7 +35,8 @@ Row {
 
                 delegate: Component {
                     Rectangle {
-                        height: tagrow.height
+                        visible: currtag.text.includes(filtering.text)
+                        height: currtag.text.includes(filtering.text) ? tagrow.height : 0
                         width: parent.width
                         color:  ListView.isCurrentItem ? "lightsteelblue" : "transparent"
                         radius: 5
