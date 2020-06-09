@@ -95,6 +95,21 @@ ApplicationWindow {
         onNo: discardChangesDialog.close()
     }
 
+    MessageDialog {
+        id: discardChangesAndQuitDialog
+        title: "Discard changes?"
+        icon: StandardIcon.Question
+        text: "The file was changed. Are you sure you want to quit and discard changes?"
+        detailedText: "If you choose Yes, your changes will be discarded. If you choose No you will be able to keep editing the file."
+        standardButtons: StandardButton.Yes | StandardButton.No
+        Component.onCompleted: visible = false
+        onYes: {
+            discardChangesAndQuitDialog.close()
+            Qt.quit()
+        }
+        onNo: discardChangesAndQuitDialog.close()
+    }
+
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")
@@ -122,7 +137,7 @@ ApplicationWindow {
                 text: qsTr("&Quit")
                 onTriggered: {
                     if (tagList.modified()){
-                        discardChangesDialog.open()
+                        discardChangesAndQuitDialog.open()
                     } else {
                         Qt.quit()
                     }
@@ -153,7 +168,7 @@ ApplicationWindow {
     onClosing: {
         close.accepted = false
         if (tagList.modified()){
-            discardChangesDialog.open()
+            discardChangesAndQuitDialog.open()
         } else {
             Qt.quit()
         }
