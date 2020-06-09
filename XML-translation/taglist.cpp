@@ -23,7 +23,11 @@ bool TagList::setItemAt(int index, const TagItem &item)
         return false;
     }
     mItems[index] = item;
-    mNodes[index].last_child().set_value(item.translation.toUtf8().constData());
+    if (item.translation == "") {
+        mNodes[index].last_child().set_value(item.original.toUtf8().constData());
+    } else {
+        mNodes[index].last_child().set_value(item.translation.toUtf8().constData());
+    }
     qDebug() << "Value" << mNodes[index].text().as_string();
     return true;
 }
@@ -57,11 +61,11 @@ void TagList::loadItems()
     //std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
 
     result = m_doc.load_file(m_source.c_str(),
-        pugi::parse_default|pugi::parse_declaration);
+                             pugi::parse_default|pugi::parse_declaration);
     if (!result)
     {
         qDebug() << "Parse error: " << result.description()
-            << ", character pos= " << result.offset;
+                 << ", character pos= " << result.offset;
     }
     // A valid XML document must have a single root node
     m_root = m_doc.document_element();

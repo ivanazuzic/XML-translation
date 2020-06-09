@@ -28,7 +28,12 @@ public:
     }
     Q_INVOKABLE void saveList() {
         qDebug() << m_path;
-        m_doc.save_file("save_file_output.xml");
+        m_doc.save_file(m_path.toUtf8().constData());
+        /*for (int i = mItems.size()-1; i >= 0; i--) {
+            mItems[i].original = mItems[i].translation;
+            mItems[i].translation = "";
+        }*/
+        openList(m_path); // bez ovoga se UI ne azurira
     }
 
     Q_INVOKABLE void saveListAs(QString m_source) {
