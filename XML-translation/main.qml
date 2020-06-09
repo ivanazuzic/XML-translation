@@ -51,8 +51,9 @@ ApplicationWindow {
             fileSaveAsDialog.close()
         }
         Component.onCompleted: visible = false
-        selectMultiple: false
         nameFilters: [ "XML files (*.xml)" ]
+        selectMultiple: false
+        selectExisting: false
     }
 
     MessageDialog {

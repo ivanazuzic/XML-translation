@@ -36,7 +36,10 @@ public:
         openList(m_path); // bez ovoga se UI ne azurira
     }
 
-    Q_INVOKABLE void saveListAs(QString m_source) {
+    Q_INVOKABLE void saveListAs(QString path) {
+        m_path = path;
+        m_source = m_path.toUtf8().constData();
+        saveList();
     }
 
     explicit TagList(QObject *parent = nullptr);
