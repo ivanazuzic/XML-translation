@@ -55,12 +55,15 @@ Row {
                                 text: original
                                 font.family: "Helvetica"
                                 font.pointSize: 12
+                                visible: translation.length === 0
                             }
                             Text {
                                 id: currtranslation
                                 text: translation
                                 font.family: "Helvetica"
                                 font.pointSize: 12
+                                color: "green"
+                                visible: translation.length > 0
                             }
                         }
                         MouseArea {
