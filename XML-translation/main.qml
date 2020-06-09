@@ -34,21 +34,21 @@ ApplicationWindow {
     }
 
     FileDialog {
-        id: fileSaveDialog
-        title: "Save"
+        id: fileSaveAsDialog
+        title: "Save As"
         folder: shortcuts.home
         onAccepted: {
-            var path = fileSaveDialog.fileUrl.toString();
+            var path = fileSaveAsDialog.fileUrl.toString();
             // remove prefixed "file://"
             path = path.replace(/^(file:\/{2})/,"");
             // unescape html codes like '%23' for '#'
             console.log(decodeURIComponent(path));
-            tagList.saveList(decodeURIComponent(path))
-            fileSaveDialog.close()
+            tagList.saveListAs(decodeURIComponent(path))
+            fileSaveAsDialog.close()
         }
         onRejected: {
             console.log("Canceled")
-            fileSaveDialog.close()
+            fileSaveAsDialog.close()
         }
         Component.onCompleted: visible = false
         selectMultiple: false
@@ -64,10 +64,11 @@ ApplicationWindow {
             }
             Action {
                 text: qsTr("&Save")
-                onTriggered: fileSaveDialog.open() //tagList.openList()
+                onTriggered: tagList.saveList()
             }
             Action {
                 text: qsTr("Save &As...")
+                onTriggered: fileSaveAsDialog.open()
             }
             MenuSeparator { }
             Action {
@@ -85,15 +86,15 @@ ApplicationWindow {
     Column {
         width: parent.width
         height: parent.height
-        /*TagList{
-            width: parent.width
-            height: 0.5 * parent.height
-        }*/
-
-        TagTable {
+        TagList{
             width: parent.width
             height: parent.height
         }
+
+        /*TagTable {
+            width: parent.width
+            height: parent.height
+        }*/
     }
 
 }

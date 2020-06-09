@@ -5,6 +5,7 @@ TagList::TagList(QObject *parent) : QObject(parent)
     /*mItems.append({QStringLiteral("a"), QStringLiteral("sadfgsa"), QStringLiteral("fgshjtukfdjhbsg")});
     mItems.append({QStringLiteral("tekst"), QStringLiteral("macka"), QStringLiteral("cat")});
     mItems.append({QStringLiteral("img"), QStringLiteral("pas"), QStringLiteral("dog")});*/
+    m_path = "";
 }
 
 QVector<TagItem> TagList::items() const
@@ -22,6 +23,8 @@ bool TagList::setItemAt(int index, const TagItem &item)
         return false;
     }
     mItems[index] = item;
+    mNodes[index].last_child().set_value(item.translation.toUtf8().constData());
+    qDebug() << "Value" << mNodes[index].text().as_string();
     return true;
 }
 
@@ -49,13 +52,11 @@ void TagList::removeItems()
     }
 }
 
-void TagList::loadItems(std::string m_source)
+void TagList::loadItems()
 {
     //std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
-    pugi::xml_document m_doc;
-    pugi::xml_node m_root;
 
-    pugi::xml_parse_result result = m_doc.load_file(m_source.c_str(),
+    result = m_doc.load_file(m_source.c_str(),
         pugi::parse_default|pugi::parse_declaration);
     if (!result)
     {
@@ -71,11 +72,20 @@ void TagList::loadItems(std::string m_source)
     dfs(m_doc);
 }
 
+void TagList::clearAll()
+{
+    removeItems();
+    mNodes.clear();
+    m_path = "";
+    m_source = "";
+}
+
 void TagList::dfs(pugi::xml_node root) {
     if (root.parent() && strlen(root.name()) == 0) {
         //qDebug() << root.parent().name() << "-" << root.text().as_string();
         QString parent = root.parent().name();
         appendItem(parent, root.text().as_string(), "");
+        mNodes.append(root.parent());
     }
     for (auto child:root.children()) {
         dfs(child);
