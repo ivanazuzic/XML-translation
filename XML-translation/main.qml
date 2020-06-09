@@ -18,19 +18,19 @@ ApplicationWindow {
         onAccepted: {
             var path = fileOpenDialog.fileUrl.toString();
             switch (Qt.platform.os) {
-                case "linux":
-                    // remove prefixed "file://"
-                    path = path.replace(/^(file:\/{2})/,"")
-                    // unescape html codes like '%23' for '#'
-                    path = decodeURIComponent(path)
-                    break
-                case "windows":
-                    // remove prefixed "file://"
-                    path = path.replace(/^(file:\/{2})/,"")
-                    // unescape html codes like '%23' for '#'
-                    path = decodeURIComponent(path)
-                    path = path.substr(1)
-                    break
+            case "linux":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                break
+            case "windows":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                path = path.substr(1)
+                break
             }
             console.log(path)
             tagList.openList(path)
@@ -52,19 +52,19 @@ ApplicationWindow {
         onAccepted: {
             var path = fileSaveAsDialog.fileUrl.toString()
             switch (Qt.platform.os) {
-                case "linux":
-                    // remove prefixed "file://"
-                    path = path.replace(/^(file:\/{2})/,"")
-                    // unescape html codes like '%23' for '#'
-                    path = decodeURIComponent(path)
-                    break
-                case "windows":
-                    // remove prefixed "file://"
-                    path = path.replace(/^(file:\/{2})/,"")
-                    // unescape html codes like '%23' for '#'
-                    path = decodeURIComponent(path)
-                    path = path.substr(1)
-                    break
+            case "linux":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                break
+            case "windows":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                path = path.substr(1)
+                break
             }
             console.log(path)
             tagList.saveListAs(path)
@@ -120,7 +120,13 @@ ApplicationWindow {
             MenuSeparator { }
             Action {
                 text: qsTr("&Quit")
-                onTriggered: Qt.quit()
+                onTriggered: {
+                    if (tagList.modified()){
+                        discardChangesDialog.open()
+                    } else {
+                        Qt.quit()
+                    }
+                }
             }
         }
         Menu {
@@ -142,6 +148,15 @@ ApplicationWindow {
             width: parent.width
             height: parent.height
         }*/
+    }
+
+    onClosing: {
+        close.accepted = false
+        if (tagList.modified()){
+            discardChangesDialog.open()
+        } else {
+            Qt.quit()
+        }
     }
 
 }
