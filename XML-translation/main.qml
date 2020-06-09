@@ -17,11 +17,23 @@ ApplicationWindow {
         folder: shortcuts.home
         onAccepted: {
             var path = fileOpenDialog.fileUrl.toString();
-            // remove prefixed "file://"
-            path = path.replace(/^(file:\/{2})/,"");
-            // unescape html codes like '%23' for '#'
-            console.log(decodeURIComponent(path));
-            tagList.openList(decodeURIComponent(path))
+            switch (Qt.platform.os) {
+                case "linux":
+                    // remove prefixed "file://"
+                    path = path.replace(/^(file:\/{2})/,"")
+                    // unescape html codes like '%23' for '#'
+                    path = decodeURIComponent(path)
+                    break
+                case "windows":
+                    // remove prefixed "file://"
+                    path = path.replace(/^(file:\/{2})/,"")
+                    // unescape html codes like '%23' for '#'
+                    path = decodeURIComponent(path)
+                    path = path.substr(1)
+                    break
+            }
+            console.log(path)
+            tagList.openList(path)
             fileOpenDialog.close()
         }
         onRejected: {
@@ -38,12 +50,24 @@ ApplicationWindow {
         title: "Save As"
         folder: shortcuts.home
         onAccepted: {
-            var path = fileSaveAsDialog.fileUrl.toString();
-            // remove prefixed "file://"
-            path = path.replace(/^(file:\/{2})/,"");
-            // unescape html codes like '%23' for '#'
-            console.log(decodeURIComponent(path));
-            tagList.saveListAs(decodeURIComponent(path))
+            var path = fileSaveAsDialog.fileUrl.toString()
+            switch (Qt.platform.os) {
+                case "linux":
+                    // remove prefixed "file://"
+                    path = path.replace(/^(file:\/{2})/,"")
+                    // unescape html codes like '%23' for '#'
+                    path = decodeURIComponent(path)
+                    break
+                case "windows":
+                    // remove prefixed "file://"
+                    path = path.replace(/^(file:\/{2})/,"")
+                    // unescape html codes like '%23' for '#'
+                    path = decodeURIComponent(path)
+                    path = path.substr(1)
+                    break
+            }
+            console.log(path)
+            tagList.saveListAs(path)
             fileSaveAsDialog.close()
         }
         onRejected: {
