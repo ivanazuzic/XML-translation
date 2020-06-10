@@ -15,6 +15,7 @@ Row {
             width: parent.width
             height: 0.1 * parent.height
             id: filtering
+            placeholderText: qsTr("Enter a tag to filter")
         }
 
         Frame {
