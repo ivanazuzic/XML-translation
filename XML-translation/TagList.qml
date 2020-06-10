@@ -83,10 +83,18 @@ Row {
         Frame {
             width: parent.width
             height: 0.5 * parent.height
-            Text{
-                font.family: "Helvetica"
-                font.pointSize: 12
-                text: list.model.data(list.model.index(list.currentIndex, 0), 1)
+            ScrollView {
+                id: originalScrollView
+                width: parent.width
+                height: parent.height
+                clip: true
+                Text{
+                    font.family: "Helvetica"
+                    font.pointSize: 12
+                    text: list.model.data(list.model.index(list.currentIndex, 0), 1)
+                    width: parent.width
+                    height: parent.height
+                }
             }
         }
         Frame {
@@ -108,6 +116,7 @@ Row {
                     onTextChanged: {
                         list.model.setData(list.model.index(list.currentIndex, 0), translationfield.text, 2);
                     }
+                    selectByMouse: true
                 }
             }
         }
