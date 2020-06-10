@@ -23,9 +23,6 @@ Row {
             height: 0.9 * parent.height
             ListView {
                 id: list
-                property int selectedItemID
-                property string originalValue
-                property string translation
                 implicitWidth: parent.width
                 implicitHeight: parent.height
                 clip: true
@@ -72,38 +69,9 @@ Row {
                             anchors.fill: parent
                             onClicked: {
                                 view.currentIndex = itemIndex;
-                                //list.model.setProperty(itemIndex, "tag", "cost * 2")
-                                //console.log(list.model.rowCount())
-                                //console.log(currtag.text)
-                                //list.originalValue = curroriginal.text
-                                //list.translation = currtranslation.text
-
-
                             }
                         }
                     }
-                }
-                onCurrentItemChanged: {
-                    selectedItemID = list.currentIndex
-                    //originalValue = list.model.get(list.currentIndex).original;
-                    //translation = list.model.get(list.currentIndex).translation;
-
-                    // Column is always zero as it's a list
-                    var column_number = 0;
-                    // get `QModelIndex`
-                    var q_model_index = list.model.index(selectedItemID, column_number);
-
-                    // see for list of roles:
-                    // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
-                    var role = 1
-
-                    //var data_changed = list.model.setData(q_model_index, "3", role);
-
-                    originalValue = list.model.data(q_model_index, 1);
-                    translation = list.model.data(q_model_index, 2);
-                    console.log(originalValue)
-                    console.log(translation)
-                    translationfield.text = translation
                 }
             }
         }
@@ -114,16 +82,16 @@ Row {
         height: parent.height
         Frame {
             width: parent.width
-            height: 0.4 * parent.height
+            height: 0.5 * parent.height
             Text{
                 font.family: "Helvetica"
                 font.pointSize: 12
-                text: list.originalValue
+                text: list.model.data(list.model.index(list.currentIndex, 0), 1)
             }
         }
         Frame {
             width: parent.width
-            height: 0.4 * parent.height
+            height: 0.5 * parent.height
             ScrollView {
                 id: translationScrollView
                 width: parent.width
@@ -133,53 +101,15 @@ Row {
                     width: parent.width
                     height: parent.height
                     placeholderText: qsTr("Enter translation")
-                    text: list.translation
+                    text: list.model.data(list.model.index(list.currentIndex, 0), 2)
                     wrapMode: TextArea.WordWrap
                     font.family: "Helvetica"
                     font.pointSize: 12
-                    //onEditingFinished: list.model.setData(list.currentIndex, "3", 2) //list.model.setProperty(list.currentIndex, "translation", text)
+                    onTextChanged: {
+                        list.model.setData(list.model.index(list.currentIndex, 0), translationfield.text, 2);
+                    }
                 }
             }
         }
-        Row {
-            width: parent.width
-            height: 0.2 * parent.height
-            Button {
-                width: 0.5 * parent.width
-                height: parent.height
-                text: "Confirm"
-                onClicked: {
-                    // Column is always zero as it's a list
-                    var column_number = 0;
-                    // get `QModelIndex`
-                    var q_model_index = list.model.index(list.currentIndex, column_number);
-
-                    // see for list of roles:
-                    // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
-                    var role = 2
-
-                    var data_changed = list.model.setData(q_model_index, translationfield.text, role);
-                }
-            }
-            Button {
-                width: 0.5 * parent.width
-                height: parent.height
-                text: "Reset"
-                onClicked: {
-                    // Column is always zero as it's a list
-                    var column_number = 0;
-                    // get `QModelIndex`
-                    var q_model_index = list.model.index(list.currentIndex, column_number);
-
-                    // see for list of roles:
-                    // http://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
-                    var role = 2
-
-                    var data_changed = list.model.setData(q_model_index, "", role);
-                    translationfield.text = ""
-                }
-            }
-        }
-
     }
 }
