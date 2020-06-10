@@ -94,6 +94,7 @@ Row {
                     text: list.model.data(list.model.index(list.currentIndex, 0), 1)
                     width: parent.width
                     height: parent.height
+                    wrapMode: Text.WordWrap
                 }
             }
         }
