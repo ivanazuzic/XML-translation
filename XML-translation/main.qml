@@ -154,9 +154,10 @@ ApplicationWindow {
     Column {
         width: parent.width
         height: parent.height
+
         TagList{
-            width: parent.width
-            height: parent.height
+            anchors.margins: 15
+            anchors.fill: parent
         }
     }
 

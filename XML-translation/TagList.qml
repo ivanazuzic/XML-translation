@@ -8,9 +8,11 @@ import Tag 1.0
 Row {
     width: parent.width
     height: parent.height
+    spacing: 5
     Column {
         width: parent.width * 0.5
         height: parent.height
+        spacing: 5
         TextField {
             width: parent.width
             height: 0.1 * parent.height
@@ -86,6 +88,7 @@ Row {
     Column{
         width: parent.width * 0.5
         height: parent.height
+        spacing: 5
         Frame {
             width: parent.width
             height: 0.5 * parent.height
