@@ -2,9 +2,6 @@
 
 TagList::TagList(QObject *parent) : QObject(parent)
 {
-    /*mItems.append({QStringLiteral("a"), QStringLiteral("sadfgsa"), QStringLiteral("fgshjtukfdjhbsg")});
-    mItems.append({QStringLiteral("tekst"), QStringLiteral("macka"), QStringLiteral("cat")});
-    mItems.append({QStringLiteral("img"), QStringLiteral("pas"), QStringLiteral("dog")});*/
     clearAll();
 }
 
@@ -58,8 +55,6 @@ void TagList::removeItems()
 
 void TagList::loadItems()
 {
-    //std::string m_source = "/home/ivana/Documents/PNP/XML-translation/XML-translation/test.xml";
-
     result = m_doc.load_file(m_source.c_str(),
                              pugi::parse_default|pugi::parse_declaration);
     if (!result)

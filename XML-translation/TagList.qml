@@ -26,7 +26,10 @@ Row {
                 implicitWidth: parent.width
                 implicitHeight: parent.height
                 clip: true
-
+                focus: true
+                Keys.onPressed: {
+                    console.log("Key pressed")
+                }
                 model: TagModel{
                     list: tagList
                 }

@@ -17,9 +17,6 @@ class TagList : public QObject
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE void gimmeText() {
-        qDebug() << "new text";
-    }
     Q_INVOKABLE void openList(QString path) {
         clearAll();
         m_path = path;
@@ -29,10 +26,6 @@ public:
     Q_INVOKABLE void saveList() {
         qDebug() << m_path;
         m_doc.save_file(m_path.toUtf8().constData());
-        /*for (int i = mItems.size()-1; i >= 0; i--) {
-            mItems[i].original = mItems[i].translation;
-            mItems[i].translation = "";
-        }*/
         openList(m_path); // bez ovoga se UI ne azurira
     }
 

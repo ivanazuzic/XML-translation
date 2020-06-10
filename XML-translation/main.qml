@@ -158,11 +158,6 @@ ApplicationWindow {
             width: parent.width
             height: parent.height
         }
-
-        /*TagTable {
-            width: parent.width
-            height: parent.height
-        }*/
     }
 
     onClosing: {
