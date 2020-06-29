@@ -271,6 +271,8 @@ ApplicationWindow {
             title: qsTr("&Help")
             Action {
                 text: qsTr("&About")
+                enabled: true
+                shortcut: "Ctrl+A"
             }
         }
     }
