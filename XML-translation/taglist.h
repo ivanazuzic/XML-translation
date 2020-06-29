@@ -21,8 +21,16 @@ public:
         clearAll();
         m_path = path;
         m_source = m_path.toUtf8().constData();
-        loadItems();
+        loadItems(false);
     }
+
+    Q_INVOKABLE void openList(QString path) {
+        clearAll();
+        m_path = path;
+        m_source = m_path.toUtf8().constData();
+        loadItems(true);
+    }
+
     Q_INVOKABLE void saveList() {
         qDebug() << m_path;
         m_doc.save_file(m_path.toUtf8().constData());
@@ -56,7 +64,7 @@ signals:
 public slots:
     void appendItem(QString tag, QString original, QString translation);
     void removeItems();
-    void loadItems();
+    void loadItems(bool forOpening);
     void clearAll();
     bool modified();
 
@@ -73,7 +81,7 @@ private:
 
     pugi::xml_parse_result result;
 
-    void dfs(pugi::xml_node root);
+    void dfs(pugi::xml_node root, bool forOpening);
 
 };
 

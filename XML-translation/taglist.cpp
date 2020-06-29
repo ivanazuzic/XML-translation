@@ -53,7 +53,7 @@ void TagList::removeItems()
     }
 }
 
-void TagList::loadItems()
+void TagList::loadItems(bool forOpening)
 {
     result = m_doc.load_file(m_source.c_str(),
                              pugi::parse_default|pugi::parse_declaration);
@@ -68,7 +68,7 @@ void TagList::loadItems()
     qDebug() << "Load result: " << result.description();
 
     //readXML(m_source, m_doc, m_root);
-    dfs(m_doc);
+    dfs(m_doc, forOpening);
 }
 
 void TagList::clearAll()
@@ -89,15 +89,21 @@ bool TagList::modified()
     return false;
 }
 
-void TagList::dfs(pugi::xml_node root) {
-    if (root.parent() && strlen(root.name()) == 0) {
-        qDebug() << root.parent().name() << "-" << root.text().as_string();
-        QString parent = root.parent().name();
-        appendItem(parent, root.text().as_string(), "");
-        mNodes.append(root.parent());
-    }
-    for (auto child:root.children()) {
-        dfs(child);
+void TagList::dfs(pugi::xml_node root, bool forOpening) {
+    if (strncmp(root.first_child().name(), "source", 6) == 0 && strncmp(root.last_child().name(), "target", 6) == 0 && forOpening) {
+        QString parent = root.name();
+        appendItem(parent, root.first_child().text().as_string(), root.last_child().text().as_string());
+        mNodes.append(root);
+    } else {
+        if (root.parent() && strlen(root.name()) == 0) {
+            //qDebug() << root.parent().name() << "-" << root.text().as_string();
+            QString parent = root.parent().name();
+            appendItem(parent, root.text().as_string(), "");
+            mNodes.append(root.parent());
+        }
+        for (auto child:root.children()) {
+            dfs(child, forOpening);
+        }
     }
 }
 

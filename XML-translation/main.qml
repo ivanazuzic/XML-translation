@@ -46,6 +46,40 @@ ApplicationWindow {
     }
 
     FileDialog {
+        id: fileOpenDialog
+        title: "Open"
+        folder: shortcuts.home
+        onAccepted: {
+            var path = fileOpenDialog.fileUrl.toString();
+            switch (Qt.platform.os) {
+            case "linux":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                break
+            case "windows":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                path = path.substr(1)
+                break
+            }
+            console.log(path)
+            tagList.openList(path)
+            fileOpenDialog.close()
+        }
+        onRejected: {
+            console.log("Canceled")
+            fileOpenDialog.close()
+        }
+        Component.onCompleted: visible = false
+        selectMultiple: false
+        nameFilters: [ "XML files (*.xml)" ]
+    }
+
+    FileDialog {
         id: fileSaveAsDialog
         title: "Save As"
         folder: shortcuts.home
@@ -156,6 +190,17 @@ ApplicationWindow {
                         discardChangesDialog.open()
                     } else {
                         fileImportDialog.open() //tagList.importList()
+                    }
+                }
+            }
+            Action {
+                text: qsTr("&Open...")
+                onTriggered: {
+                    console.log(tagList.modified())
+                    if (tagList.modified()){
+                        discardChangesDialog.open()
+                    } else {
+                        fileOpenDialog.open()
                     }
                 }
             }
