@@ -12,11 +12,11 @@ ApplicationWindow {
     title: qsTr("XML translation")
 
     FileDialog {
-        id: fileOpenDialog
-        title: "Open"
+        id: fileImportDialog
+        title: "Import"
         folder: shortcuts.home
         onAccepted: {
-            var path = fileOpenDialog.fileUrl.toString();
+            var path = fileImportDialog.fileUrl.toString();
             switch (Qt.platform.os) {
             case "linux":
                 // remove prefixed "file://"
@@ -34,11 +34,11 @@ ApplicationWindow {
             }
             console.log(path)
             tagList.openList(path)
-            fileOpenDialog.close()
+            fileImportDialog.close()
         }
         onRejected: {
             console.log("Canceled")
-            fileOpenDialog.close()
+            fileImportDialog.close()
         }
         Component.onCompleted: visible = false
         selectMultiple: false
@@ -89,7 +89,7 @@ ApplicationWindow {
         standardButtons: StandardButton.Yes | StandardButton.No
         Component.onCompleted: visible = false
         onYes: {
-            fileOpenDialog.open()
+            fileImportDialog.open()
             discardChangesDialog.close()
         }
         onNo: discardChangesDialog.close()
@@ -114,13 +114,13 @@ ApplicationWindow {
         Menu {
             title: qsTr("&File")
             Action {
-                text: qsTr("&Open...")
+                text: qsTr("&Import...")
                 onTriggered: {
                     console.log(tagList.modified())
                     if (tagList.modified()){
                         discardChangesDialog.open()
                     } else {
-                        fileOpenDialog.open() //tagList.openList()
+                        fileImportDialog.open() //tagList.openList()
                     }
                 }
             }
