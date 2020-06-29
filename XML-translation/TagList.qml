@@ -100,7 +100,7 @@ Row {
                 Text{
                     font.family: "Helvetica"
                     font.pointSize: 12
-                    text: list.model.data(list.model.index(list.currentIndex, 0), 1)
+                    text: list.count > 0 ? list.model.data(list.model.index(list.currentIndex, 0), 1) : ""
                     width: parent.width
                     height: parent.height
                     wrapMode: Text.WordWrap
@@ -119,12 +119,12 @@ Row {
                     width: parent.width
                     height: parent.height
                     placeholderText: qsTr("Enter translation")
-                    text: list.model.data(list.model.index(list.currentIndex, 0), 2)
+                    text: list.count > 0 ? list.model.data(list.model.index(list.currentIndex, 0), 2) : ""
                     wrapMode: TextArea.WordWrap
                     font.family: "Helvetica"
                     font.pointSize: 12
                     onTextChanged: {
-                        list.model.setData(list.model.index(list.currentIndex, 0), translationfield.text, 2);
+                        if (list.count > 0) list.model.setData(list.model.index(list.currentIndex, 0), translationfield.text, 2);
                     }
                     selectByMouse: true
                 }

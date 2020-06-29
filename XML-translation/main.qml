@@ -179,11 +179,37 @@ ApplicationWindow {
         onNo: discardChangesAndQuitDialog.close()
     }
 
+    MessageDialog {
+        id: discardChangesAndNewDialog
+        title: "Discard changes?"
+        icon: StandardIcon.Question
+        text: "The file was changed. Are you sure you want to open a new one and discard changes?"
+        detailedText: "If you choose Yes, your changes will be discarded. If you choose No you will be able to keep editing the file."
+        standardButtons: StandardButton.Yes | StandardButton.No
+        Component.onCompleted: visible = false
+        onYes: {
+            discardChangesAndNewDialog.close()
+            tagList.clearAll()
+        }
+        onNo: discardChangesAndNewDialog.close()
+    }
+
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")
             Action {
-                text: qsTr("&Import...")
+                text: qsTr("&New")
+                onTriggered: {
+                    console.log(tagList.modified())
+                    if (tagList.modified()){
+                        discardChangesAndNewDialog.open()
+                    } else {
+                        tagList.clearAll()
+                    }
+                }
+            }
+            Action {
+                text: qsTr("&Import")
                 onTriggered: {
                     console.log(tagList.modified())
                     if (tagList.modified()){
@@ -194,7 +220,7 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("&Open...")
+                text: qsTr("&Open")
                 onTriggered: {
                     console.log(tagList.modified())
                     if (tagList.modified()){
@@ -209,7 +235,7 @@ ApplicationWindow {
                 onTriggered: tagList.saveList()
             }
             Action {
-                text: qsTr("Save &As...")
+                text: qsTr("Save &As")
                 onTriggered: fileSaveAsDialog.open()
             }
             Action {
