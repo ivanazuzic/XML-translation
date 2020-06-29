@@ -38,6 +38,7 @@ QVariant TagModel::data(const QModelIndex &index, int role) const
 
 bool TagModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    //qDebug() << value.toString();
     if (!mList) {
         return false;
     }

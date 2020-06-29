@@ -12,6 +12,8 @@ QVector<TagItem> TagList::items() const
 
 bool TagList::setItemAt(int index, const TagItem &item)
 {
+    //qDebug() << "Value" << mNodes[index].text().as_string();
+    //qDebug() << "Setting item " << index << " from " << item.original << " to " << item.translation;
     if (index < 0 || index >= mItems.size()) {
         return false;
     }
@@ -25,7 +27,10 @@ bool TagList::setItemAt(int index, const TagItem &item)
     } else {
         mNodes[index].last_child().set_value(item.translation.toUtf8().constData());
     }
-    qDebug() << "Value" << mNodes[index].text().as_string();
+    /*qDebug() << "Value" << mNodes[index].text().as_string();
+    for (auto no: mNodes){
+        qDebug() << "Node " << no.text().as_string();
+    }*/
     return true;
 }
 
@@ -89,10 +94,15 @@ bool TagList::modified()
     return false;
 }
 
-void TagList::dfs(pugi::xml_node root, bool forOpening) {
+void TagList::dfs(pugi::xml_node &root, bool forOpening) {
     if (strncmp(root.first_child().name(), "source", 6) == 0 && strncmp(root.last_child().name(), "target", 6) == 0 && forOpening) {
         QString parent = root.name();
-        appendItem(parent, root.first_child().text().as_string(), root.last_child().text().as_string());
+        QString source = root.first_child().text().as_string();
+        QString target = root.last_child().text().as_string();
+        appendItem(parent, source, target);
+        root.remove_child(root.first_child());
+        root.remove_child(root.first_child());
+        root.text().set(target.toUtf8().constData());
         mNodes.append(root);
     } else {
         if (root.parent() && strlen(root.name()) == 0) {

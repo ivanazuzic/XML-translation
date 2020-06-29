@@ -81,7 +81,7 @@ private:
 
     pugi::xml_parse_result result;
 
-    void dfs(pugi::xml_node root, bool forOpening);
+    void dfs(pugi::xml_node &root, bool forOpening);
 
 };
 
