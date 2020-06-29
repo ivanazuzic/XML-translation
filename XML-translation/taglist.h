@@ -35,6 +35,11 @@ public:
         saveList();
     }
 
+
+    Q_INVOKABLE void exportList(QString path) {
+        m_doc.save_file(path.toUtf8().constData());
+    }
+
     explicit TagList(QObject *parent = nullptr);
 
     QVector<TagItem> items() const;

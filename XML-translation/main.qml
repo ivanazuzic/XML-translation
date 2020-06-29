@@ -80,6 +80,41 @@ ApplicationWindow {
         selectExisting: false
     }
 
+    FileDialog {
+        id: fileExportDialog
+        title: "Export"
+        folder: shortcuts.home
+        onAccepted: {
+            var path = fileExportDialog.fileUrl.toString()
+            switch (Qt.platform.os) {
+            case "linux":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                break
+            case "windows":
+                // remove prefixed "file://"
+                path = path.replace(/^(file:\/{2})/,"")
+                // unescape html codes like '%23' for '#'
+                path = decodeURIComponent(path)
+                path = path.substr(1)
+                break
+            }
+            console.log(path)
+            tagList.exportList(path)
+            fileExportDialog.close()
+        }
+        onRejected: {
+            console.log("Canceled")
+            fileSaveAsDialog.close()
+        }
+        Component.onCompleted: visible = false
+        nameFilters: [ "XML files (*.xml)" ]
+        selectMultiple: false
+        selectExisting: false
+    }
+
     MessageDialog {
         id: discardChangesDialog
         title: "Discard changes?"
@@ -131,6 +166,10 @@ ApplicationWindow {
             Action {
                 text: qsTr("Save &As...")
                 onTriggered: fileSaveAsDialog.open()
+            }
+            Action {
+                text: qsTr("&Export")
+                onTriggered: fileExportDialog.open()
             }
             MenuSeparator { }
             Action {

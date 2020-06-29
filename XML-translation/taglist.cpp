@@ -91,7 +91,7 @@ bool TagList::modified()
 
 void TagList::dfs(pugi::xml_node root) {
     if (root.parent() && strlen(root.name()) == 0) {
-        //qDebug() << root.parent().name() << "-" << root.text().as_string();
+        qDebug() << root.parent().name() << "-" << root.text().as_string();
         QString parent = root.parent().name();
         appendItem(parent, root.text().as_string(), "");
         mNodes.append(root.parent());
