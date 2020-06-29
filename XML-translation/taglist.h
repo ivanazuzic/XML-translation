@@ -33,8 +33,18 @@ public:
 
     Q_INVOKABLE void saveList() {
         qDebug() << m_path;
+        qDebug() << "Svi tagovi";
+        for (int i = 0; i < mItems.size(); i++) {
+            qDebug() << mItems[i].tag << " " << mItems[i].original << " " << mItems[i].translation;
+            if(!mItems[i].translation.isEmpty()){
+                mNodes[i].remove_child(mNodes[i].first_child());
+                mNodes[i].append_child("source").text().set(mItems[i].original.toUtf8().constData());
+                mNodes[i].append_child("target").text().set(mItems[i].translation.toUtf8().constData());
+            }
+        }
+
         m_doc.save_file(m_path.toUtf8().constData());
-        importList(m_path); // bez ovoga se UI ne azurira
+        //importList(m_path); // bez ovoga se UI ne azurira, ali ovo vise ne treba jer se promijenila strategija spremanja
     }
 
     Q_INVOKABLE void saveListAs(QString path) {
