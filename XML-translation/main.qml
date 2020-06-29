@@ -198,7 +198,10 @@ ApplicationWindow {
         Menu {
             title: qsTr("&File")
             Action {
+                id: newAction
                 text: qsTr("&New")
+                enabled: true
+                shortcut: StandardKey.New
                 onTriggered: {
                     console.log(tagList.modified())
                     if (tagList.modified()){
@@ -210,6 +213,7 @@ ApplicationWindow {
             }
             Action {
                 text: qsTr("&Import")
+                shortcut: "Ctrl+I"
                 onTriggered: {
                     console.log(tagList.modified())
                     if (tagList.modified()){
@@ -221,6 +225,8 @@ ApplicationWindow {
             }
             Action {
                 text: qsTr("&Open")
+                enabled: true
+                shortcut: StandardKey.Open
                 onTriggered: {
                     console.log(tagList.modified())
                     if (tagList.modified()){
@@ -232,19 +238,26 @@ ApplicationWindow {
             }
             Action {
                 text: qsTr("&Save")
+                enabled: true
+                shortcut: StandardKey.Save
                 onTriggered: tagList.saveList()
             }
             Action {
                 text: qsTr("Save &As")
+                enabled: true
+                shortcut: StandardKey.SaveAs
                 onTriggered: fileSaveAsDialog.open()
             }
             Action {
                 text: qsTr("&Export")
+                shortcut: "Ctrl+E"
                 onTriggered: fileExportDialog.open()
             }
             MenuSeparator { }
             Action {
                 text: qsTr("&Quit")
+                enabled: true
+                shortcut: StandardKey.Quit
                 onTriggered: {
                     if (tagList.modified()){
                         discardChangesAndQuitDialog.open()
