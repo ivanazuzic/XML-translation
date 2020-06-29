@@ -33,7 +33,7 @@ ApplicationWindow {
                 break
             }
             console.log(path)
-            tagList.openList(path)
+            tagList.importList(path)
             fileImportDialog.close()
         }
         onRejected: {
@@ -120,7 +120,7 @@ ApplicationWindow {
                     if (tagList.modified()){
                         discardChangesDialog.open()
                     } else {
-                        fileImportDialog.open() //tagList.openList()
+                        fileImportDialog.open() //tagList.importList()
                     }
                 }
             }

@@ -17,7 +17,7 @@ class TagList : public QObject
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE void openList(QString path) {
+    Q_INVOKABLE void importList(QString path) {
         clearAll();
         m_path = path;
         m_source = m_path.toUtf8().constData();
@@ -26,7 +26,7 @@ public:
     Q_INVOKABLE void saveList() {
         qDebug() << m_path;
         m_doc.save_file(m_path.toUtf8().constData());
-        openList(m_path); // bez ovoga se UI ne azurira
+        importList(m_path); // bez ovoga se UI ne azurira
     }
 
     Q_INVOKABLE void saveListAs(QString path) {
