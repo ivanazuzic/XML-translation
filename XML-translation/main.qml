@@ -78,9 +78,9 @@ ApplicationWindow {
     FileDialog {
         id: fileExportDialog
         title: "Export"
-        folder: shortcuts.home
+        folder: tagList.getPath() !== "" ? tagList.getPath() : shortcuts.home
         onAccepted: {
-            var path = tagList.getPath() !== "" ? tagList.getPath() : shortcuts.home
+            var path = fileExportDialog.fileUrl.toString()
             // remove prefixed "file://"
             path = path.replace(/^(file:\/{2})/,"")
             // unescape html codes like '%23' for '#'
