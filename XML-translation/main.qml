@@ -14,7 +14,7 @@ ApplicationWindow {
     FileDialog {
         id: fileImportDialog
         title: "Import"
-        folder: shortcuts.home
+        folder: tagList.getPath() !== "" ? tagList.getPath() : shortcuts.home
         onAccepted: {
             var path = fileImportDialog.fileUrl.toString();
             // remove prefixed "file://"
@@ -35,7 +35,7 @@ ApplicationWindow {
     FileDialog {
         id: fileOpenDialog
         title: "Open"
-        folder: shortcuts.home
+        folder: tagList.getPath() !== "" ? tagList.getPath() : shortcuts.home
         onAccepted: {
             var path = fileOpenDialog.fileUrl.toString();
             // remove prefixed "file://"
@@ -56,7 +56,7 @@ ApplicationWindow {
     FileDialog {
         id: fileSaveAsDialog
         title: "Save As"
-        folder: shortcuts.home
+        folder: tagList.getPath() !== "" ? tagList.getPath() : shortcuts.home
         onAccepted: {
             var path = fileSaveAsDialog.fileUrl.toString()
             // remove prefixed "file://"
@@ -80,7 +80,7 @@ ApplicationWindow {
         title: "Export"
         folder: shortcuts.home
         onAccepted: {
-            var path = fileExportDialog.fileUrl.toString()
+            var path = tagList.getPath() !== "" ? tagList.getPath() : shortcuts.home
             // remove prefixed "file://"
             path = path.replace(/^(file:\/{2})/,"")
             // unescape html codes like '%23' for '#'

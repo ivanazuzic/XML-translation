@@ -88,6 +88,7 @@ public slots:
     void clearAll();
     bool modified();
     bool canBeSaved();
+    QString getPath();
 
 private:
     QVector<TagItem> mItems;

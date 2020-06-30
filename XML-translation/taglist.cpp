@@ -102,6 +102,11 @@ bool TagList::canBeSaved()
     return !m_IsImported;
 }
 
+QString TagList::getPath()
+{
+    return m_path;
+}
+
 void TagList::traverseTags(pugi::xml_node &root, bool forOpening) {
     if (strncmp(root.first_child().name(), "source", 6) == 0 && strncmp(root.last_child().name(), "target", 6) == 0 && forOpening) {
         QString parent = root.name();
