@@ -157,7 +157,7 @@ ApplicationWindow {
             title: qsTr("File")
             Action {
                 id: newAction
-                text: qsTr("&New Project")
+                text: qsTr("New Project (Ctrl+N)")
                 enabled: true
                 shortcut: StandardKey.New
                 onTriggered: {
@@ -169,7 +169,7 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("&Open Project")
+                text: qsTr("Open Project (Ctrl+O)")
                 enabled: true
                 shortcut: StandardKey.Open
                 onTriggered: {
@@ -181,7 +181,7 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("&Save Project")
+                text: qsTr("Save Project (Ctrl+S)")
                 enabled: true
                 shortcut: StandardKey.Save
                 onTriggered: {
@@ -193,14 +193,13 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("Save Project &As")
+                text: qsTr("Save Project As")
                 enabled: true
-                shortcut: StandardKey.SaveAs
                 onTriggered: fileSaveAsDialog.open()
             }
             MenuSeparator { }
             Action {
-                text: qsTr("&Import XML")
+                text: qsTr("Import XML (Ctrl+I)")
                 shortcut: "Ctrl+I"
                 onTriggered: {
                     if (tagList.modified()){
@@ -211,13 +210,13 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("&Export XML")
+                text: qsTr("Export XML (Ctrl+E)")
                 shortcut: "Ctrl+E"
                 onTriggered: fileExportDialog.open()
             }
             MenuSeparator { }
             Action {
-                text: qsTr("&Quit")
+                text: qsTr("Quit (Ctrl+Q)")
                 enabled: true
                 shortcut: StandardKey.Quit
                 onTriggered: {
@@ -232,7 +231,7 @@ ApplicationWindow {
         Menu {
             title: qsTr("Help")
             Action {
-                text: qsTr("&About")
+                text: qsTr("About (Ctrl+A)")
                 enabled: true
                 shortcut: "Ctrl+A"
                 onTriggered: {
