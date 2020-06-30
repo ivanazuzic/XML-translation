@@ -12,11 +12,17 @@ Row {
     Keys.onDownPressed: {
         if (list.currentIndex < list.count-1) {
             list.currentIndex++
+           while(!list.contentItem.children[list.currentIndex].visible && list.currentIndex < list.count-1) {
+              list.currentIndex++
+           }
         }
     }
     Keys.onUpPressed: {
         if (list.currentIndex > 0) {
             list.currentIndex--
+            while(!list.contentItem.children[list.currentIndex].visible && list.currentIndex > 0) {
+               list.currentIndex--
+            }
         }
     }
     Keys.onTabPressed: {
