@@ -19,6 +19,7 @@ class TagList : public QObject
 public:
     Q_INVOKABLE void importList(QString path) {
         clearAll();
+        m_IsImported = true;
         m_path = path;
         m_source = m_path.toUtf8().constData();
         loadDocument(false);
@@ -26,6 +27,7 @@ public:
 
     Q_INVOKABLE void openList(QString path) {
         clearAll();
+        m_IsImported = false;
         m_path = path;
         m_source = m_path.toUtf8().constData();
         loadDocument(true);
@@ -38,11 +40,13 @@ public:
             //qDebug() << mItems[i].tag << " " << mItems[i].original << " " << mItems[i].translation;
             if(!mItems[i].translation.isEmpty()){
                 mNodes[i].remove_child(mNodes[i].first_child());
+                mNodes[i].remove_child(mNodes[i].last_child());
                 mNodes[i].append_child("source").text().set(mItems[i].original.toUtf8().constData());
                 mNodes[i].append_child("target").text().set(mItems[i].translation.toUtf8().constData());
+                mInitialTranslations[i] = mItems[i].translation;
             }
         }
-
+        qDebug() << "Saved";
         m_doc.save_file(m_path.toUtf8().constData());
         //importList(m_path); // bez ovoga se UI ne azurira, ali ovo vise ne treba jer se promijenila strategija spremanja
     }
@@ -77,9 +81,11 @@ public slots:
     void loadDocument(bool forOpening);
     void clearAll();
     bool modified();
+    bool canBeSaved();
 
 private:
     QVector<TagItem> mItems;
+    QVector<QString> mInitialTranslations;
 
     QVector<pugi::xml_node> mNodes;
 
@@ -90,6 +96,9 @@ private:
     pugi::xml_node m_root;
 
     pugi::xml_parse_result result;
+
+    // to prevent saving over the imported original;
+    bool m_IsImported = false;
 
     void traverseTags(pugi::xml_node &root, bool forOpening);
 

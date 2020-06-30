@@ -240,7 +240,14 @@ ApplicationWindow {
                 text: qsTr("&Save")
                 enabled: true
                 shortcut: StandardKey.Save
-                onTriggered: tagList.saveList()
+                onTriggered: {
+                    console.log(tagList.canBeSaved())
+                    if (tagList.canBeSaved()){
+                        tagList.saveList()
+                    } else {
+                        fileSaveAsDialog.open()
+                    }
+                }
             }
             Action {
                 text: qsTr("Save &As")

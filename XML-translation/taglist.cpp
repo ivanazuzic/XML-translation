@@ -43,6 +43,7 @@ void TagList::appendItem(QString tag, QString original, QString translation)
     item.original = original;
     item.translation = translation;
     mItems.append(item);
+    mInitialTranslations.append(translation);
 
     emit postItemAppended();
 }
@@ -80,18 +81,25 @@ void TagList::clearAll()
 {
     removeItems();
     mNodes.clear();
+    mInitialTranslations.clear();
     m_path = "";
     m_source = "";
+    m_IsImported = false;
 }
 
 bool TagList::modified()
 {
     for (int i = mItems.size()-1; i >= 0; i--) {
-        if (!mItems[i].translation.isEmpty()) {
+        if (!mItems[i].translation.isEmpty() && mItems[i].translation != mInitialTranslations[i]) {
             return true;
         }
     }
     return false;
+}
+
+bool TagList::canBeSaved()
+{
+    return !m_IsImported;
 }
 
 void TagList::traverseTags(pugi::xml_node &root, bool forOpening) {
