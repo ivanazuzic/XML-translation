@@ -32,10 +32,10 @@ public:
     }
 
     Q_INVOKABLE void saveList() {
-        qDebug() << m_path;
-        qDebug() << "Svi tagovi";
+        //qDebug() << m_path;
+        //qDebug() << "Svi tagovi";
         for (int i = 0; i < mItems.size(); i++) {
-            qDebug() << mItems[i].tag << " " << mItems[i].original << " " << mItems[i].translation;
+            //qDebug() << mItems[i].tag << " " << mItems[i].original << " " << mItems[i].translation;
             if(!mItems[i].translation.isEmpty()){
                 mNodes[i].remove_child(mNodes[i].first_child());
                 mNodes[i].append_child("source").text().set(mItems[i].original.toUtf8().constData());

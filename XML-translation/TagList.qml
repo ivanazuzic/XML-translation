@@ -6,6 +6,18 @@ import Tag 1.0
 
 
 Row {
+    focus: true
+
+    Keys.onDownPressed: {
+        if (list.currentIndex < list.count-1) {
+            list.currentIndex++
+        }
+    }
+    Keys.onUpPressed: {
+        if (list.currentIndex > 0) {
+            list.currentIndex--
+        }
+    }
     width: parent.width
     height: parent.height
     spacing: 5
@@ -28,10 +40,6 @@ Row {
                 implicitWidth: parent.width
                 implicitHeight: parent.height
                 clip: true
-                focus: true
-                Keys.onPressed: {
-                    console.log("Key pressed")
-                }
                 model: TagModel{
                     list: tagList
                 }
@@ -77,9 +85,6 @@ Row {
                             }
                         }
                     }
-                }
-                onCurrentItemChanged: {
-                    translationfield.forceActiveFocus()
                 }
             }
         }

@@ -196,7 +196,7 @@ ApplicationWindow {
 
     menuBar: MenuBar {
         Menu {
-            title: qsTr("&File")
+            title: qsTr("File")
             Action {
                 id: newAction
                 text: qsTr("&New")
@@ -268,7 +268,7 @@ ApplicationWindow {
             }
         }
         Menu {
-            title: qsTr("&Help")
+            title: qsTr("Help")
             Action {
                 text: qsTr("&About")
                 enabled: true
