@@ -42,7 +42,7 @@ Row {
             id: filtering
             placeholderText: qsTr("Enter a tag to filter")
             onTextChanged: {
-                messages.setFilterRegExp(filtering.text)
+                XMLtagsProxyModel.setFilterRegExp(filtering.text)
             }
         }
 
@@ -54,9 +54,7 @@ Row {
                 implicitWidth: parent.width
                 implicitHeight: parent.height
                 clip: true
-                model: messages/*TagModel{
-                    list: tagList
-                }*/
+                model: XMLtagsProxyModel
 
                 delegate: Component {
                     Rectangle {

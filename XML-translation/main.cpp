@@ -25,22 +25,21 @@ int main(int argc, char *argv[])
 
     TagList tagList;
 
-    TagModel *m_messageModel = new TagModel;
-    m_messageModel->setList(&tagList);
-    QSortFilterProxyModel *m_messageProxyModel = new QSortFilterProxyModel;
-    m_messageProxyModel->setSourceModel(qobject_cast<QAbstractListModel *>(m_messageModel));
+    TagModel *XMLtagsModel = new TagModel;
+    XMLtagsModel->setList(&tagList);
+    QSortFilterProxyModel *XMLtagsProxyModel = new QSortFilterProxyModel;
+    XMLtagsProxyModel->setSourceModel(qobject_cast<QAbstractListModel *>(XMLtagsModel));
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty(QStringLiteral("tagList"), &tagList);
 
-
-    engine.rootContext()->setContextProperty("messages", m_messageProxyModel);
-    //m_messageProxyModel->setSortRole(TagModel::TagRole);
-    m_messageProxyModel->setDynamicSortFilter(true);
-    //m_messageProxyModel->sort(0, Qt::AscendingOrder);
-    m_messageProxyModel->setFilterRegExp(QRegExp("", Qt::CaseInsensitive,
+    engine.rootContext()->setContextProperty("XMLtagsProxyModel", XMLtagsProxyModel);
+    //XMLtagsProxyModel->setSortRole(TagModel::TagRole);
+    XMLtagsProxyModel->setDynamicSortFilter(true);
+    //XMLtagsProxyModel->sort(0, Qt::AscendingOrder);
+    XMLtagsProxyModel->setFilterRegExp(QRegExp("", Qt::CaseInsensitive,
                                                 QRegExp::FixedString));
-    m_messageProxyModel->setFilterKeyColumn(0);
+    XMLtagsProxyModel->setFilterKeyColumn(0);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
