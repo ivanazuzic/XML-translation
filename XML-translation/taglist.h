@@ -58,13 +58,19 @@ public:
     }
 
     Q_INVOKABLE void saveListAs(QString path) {
+        #ifdef _WIN32
+                path = path.mid(1);
+        #endif
         m_path = path;
         m_source = m_path.toUtf8().constData();
         saveList();
     }
 
 
-    Q_INVOKABLE void exportList(QString path) {
+    Q_INVOKABLE void exportList(QString path) { 
+        #ifdef _WIN32
+                path = path.mid(1);
+        #endif
         m_doc.save_file(path.toUtf8().constData());
     }
 
