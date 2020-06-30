@@ -157,7 +157,7 @@ ApplicationWindow {
             title: qsTr("File")
             Action {
                 id: newAction
-                text: qsTr("&New")
+                text: qsTr("&New Project")
                 enabled: true
                 shortcut: StandardKey.New
                 onTriggered: {
@@ -169,18 +169,7 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("&Import")
-                shortcut: "Ctrl+I"
-                onTriggered: {
-                    if (tagList.modified()){
-                        discardChangesDialog.open()
-                    } else {
-                        fileImportDialog.open() //tagList.importList()
-                    }
-                }
-            }
-            Action {
-                text: qsTr("&Open")
+                text: qsTr("&Open Project")
                 enabled: true
                 shortcut: StandardKey.Open
                 onTriggered: {
@@ -192,7 +181,7 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("&Save")
+                text: qsTr("&Save Project")
                 enabled: true
                 shortcut: StandardKey.Save
                 onTriggered: {
@@ -204,13 +193,25 @@ ApplicationWindow {
                 }
             }
             Action {
-                text: qsTr("Save &As")
+                text: qsTr("Save Project &As")
                 enabled: true
                 shortcut: StandardKey.SaveAs
                 onTriggered: fileSaveAsDialog.open()
             }
+            MenuSeparator { }
             Action {
-                text: qsTr("&Export")
+                text: qsTr("&Import XML")
+                shortcut: "Ctrl+I"
+                onTriggered: {
+                    if (tagList.modified()){
+                        discardChangesDialog.open()
+                    } else {
+                        fileImportDialog.open() //tagList.importList()
+                    }
+                }
+            }
+            Action {
+                text: qsTr("&Export XML")
                 shortcut: "Ctrl+E"
                 onTriggered: fileExportDialog.open()
             }
