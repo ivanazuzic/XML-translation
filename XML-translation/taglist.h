@@ -18,6 +18,9 @@ class TagList : public QObject
     Q_OBJECT
 public:
     Q_INVOKABLE void importList(QString path) {
+        #ifdef _WIN32
+                path = path.mid(1);
+        #endif
         clearAll();
         m_IsImported = true;
         m_path = path;
@@ -26,6 +29,9 @@ public:
     }
 
     Q_INVOKABLE void openList(QString path) {
+        #ifdef _WIN32
+                path = path.mid(1);
+        #endif
         clearAll();
         m_IsImported = false;
         m_path = path;

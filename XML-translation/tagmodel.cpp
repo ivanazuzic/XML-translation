@@ -27,10 +27,13 @@ QVariant TagModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case TagRole:
         return QVariant(item.tag);
+        break;
     case OriginalRole:
         return QVariant(item.original);
+        break;
     case TranslationRole:
         return QVariant(item.translation);
+        break;
     }
 
     return QVariant();
@@ -46,10 +49,13 @@ bool TagModel::setData(const QModelIndex &index, const QVariant &value, int role
     switch (role) {
     case TagRole:
         item.tag = value.toString();
+        break;
     case OriginalRole:
         item.original = value.toString();
+        break;
     case TranslationRole:
         item.translation = value.toString();
+        break;
     }
     if (mList->setItemAt(index.row(), item)) {
         emit dataChanged(index, index, QVector<int>() << role);

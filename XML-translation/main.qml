@@ -6,10 +6,6 @@ import QtQuick.Dialogs 1.3
 //import Tag 1.0
 
 ApplicationWindow {
-    onActiveFocusItemChanged: {
-        print("active focus:", activeFocusItem)
-    }
-
     visible: true
     width: 640
     height: 480
@@ -21,27 +17,14 @@ ApplicationWindow {
         folder: shortcuts.home
         onAccepted: {
             var path = fileImportDialog.fileUrl.toString();
-            switch (Qt.platform.os) {
-            case "linux":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                break
-            case "windows":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                path = path.substr(1)
-                break
-            }
-            console.log(path)
+            // remove prefixed "file://"
+            path = path.replace(/^(file:\/{2})/,"")
+            // unescape html codes like '%23' for '#'
+            path = decodeURIComponent(path)
             tagList.importList(path)
             fileImportDialog.close()
         }
         onRejected: {
-            console.log("Canceled")
             fileImportDialog.close()
         }
         Component.onCompleted: visible = false
@@ -55,27 +38,14 @@ ApplicationWindow {
         folder: shortcuts.home
         onAccepted: {
             var path = fileOpenDialog.fileUrl.toString();
-            switch (Qt.platform.os) {
-            case "linux":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                break
-            case "windows":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                path = path.substr(1)
-                break
-            }
-            console.log(path)
+            // remove prefixed "file://"
+            path = path.replace(/^(file:\/{2})/,"")
+            // unescape html codes like '%23' for '#'
+            path = decodeURIComponent(path)
             tagList.openList(path)
             fileOpenDialog.close()
         }
         onRejected: {
-            console.log("Canceled")
             fileOpenDialog.close()
         }
         Component.onCompleted: visible = false
@@ -89,27 +59,14 @@ ApplicationWindow {
         folder: shortcuts.home
         onAccepted: {
             var path = fileSaveAsDialog.fileUrl.toString()
-            switch (Qt.platform.os) {
-            case "linux":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                break
-            case "windows":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                path = path.substr(1)
-                break
-            }
-            console.log(path)
+            // remove prefixed "file://"
+            path = path.replace(/^(file:\/{2})/,"")
+            // unescape html codes like '%23' for '#'
+            path = decodeURIComponent(path)
             tagList.saveListAs(path)
             fileSaveAsDialog.close()
         }
         onRejected: {
-            console.log("Canceled")
             fileSaveAsDialog.close()
         }
         Component.onCompleted: visible = false
@@ -124,27 +81,14 @@ ApplicationWindow {
         folder: shortcuts.home
         onAccepted: {
             var path = fileExportDialog.fileUrl.toString()
-            switch (Qt.platform.os) {
-            case "linux":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                break
-            case "windows":
-                // remove prefixed "file://"
-                path = path.replace(/^(file:\/{2})/,"")
-                // unescape html codes like '%23' for '#'
-                path = decodeURIComponent(path)
-                path = path.substr(1)
-                break
-            }
-            console.log(path)
+            // remove prefixed "file://"
+            path = path.replace(/^(file:\/{2})/,"")
+            // unescape html codes like '%23' for '#'
+            path = decodeURIComponent(path)
             tagList.exportList(path)
             fileExportDialog.close()
         }
         onRejected: {
-            console.log("Canceled")
             fileSaveAsDialog.close()
         }
         Component.onCompleted: visible = false
@@ -217,7 +161,6 @@ ApplicationWindow {
                 enabled: true
                 shortcut: StandardKey.New
                 onTriggered: {
-                    console.log(tagList.modified())
                     if (tagList.modified()){
                         discardChangesAndNewDialog.open()
                     } else {
@@ -229,7 +172,6 @@ ApplicationWindow {
                 text: qsTr("&Import")
                 shortcut: "Ctrl+I"
                 onTriggered: {
-                    console.log(tagList.modified())
                     if (tagList.modified()){
                         discardChangesDialog.open()
                     } else {
@@ -242,7 +184,6 @@ ApplicationWindow {
                 enabled: true
                 shortcut: StandardKey.Open
                 onTriggered: {
-                    console.log(tagList.modified())
                     if (tagList.modified()){
                         discardChangesDialog.open()
                     } else {
@@ -255,7 +196,6 @@ ApplicationWindow {
                 enabled: true
                 shortcut: StandardKey.Save
                 onTriggered: {
-                    console.log(tagList.canBeSaved())
                     if (tagList.canBeSaved()){
                         tagList.saveList()
                     } else {
