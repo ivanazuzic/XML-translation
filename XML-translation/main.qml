@@ -240,14 +240,13 @@ ApplicationWindow {
             }
         }
     }
-    Column {
+
+
+    TagList{
         width: parent.width
         height: parent.height
-
-        TagList{
-            anchors.margins: 15
-            anchors.fill: parent
-        }
+        anchors.margins: 15
+        anchors.fill: parent
     }
 
     onClosing: {
