@@ -194,6 +194,16 @@ ApplicationWindow {
         onNo: discardChangesAndNewDialog.close()
     }
 
+    MessageDialog {
+        id: aboutDialog
+        title: "About"
+        text: "This app is created as a tool for XML translation in 2020 on Faculty of Engineering, University of Rijeka as part of Platform independent programming course."
+        onAccepted: {
+            aboutDialog.close()
+        }
+        Component.onCompleted: visible = false
+    }
+
     menuBar: MenuBar {
         Menu {
             title: qsTr("File")
@@ -280,6 +290,9 @@ ApplicationWindow {
                 text: qsTr("&About")
                 enabled: true
                 shortcut: "Ctrl+A"
+                onTriggered: {
+                    aboutDialog.open()
+                }
             }
         }
     }
