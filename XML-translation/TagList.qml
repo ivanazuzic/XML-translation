@@ -41,6 +41,9 @@ Row {
             height: 0.1 * parent.height
             id: filtering
             placeholderText: qsTr("Enter a tag to filter")
+            onTextChanged: {
+                messages.setFilterRegExp(filtering.text)
+            }
         }
 
         Frame {
@@ -51,14 +54,14 @@ Row {
                 implicitWidth: parent.width
                 implicitHeight: parent.height
                 clip: true
-                model: TagModel{
+                model: messages/*TagModel{
                     list: tagList
-                }
+                }*/
 
                 delegate: Component {
                     Rectangle {
-                        visible: currtag.text.includes(filtering.text)
-                        height: currtag.text.includes(filtering.text) ? tagrow.height : 0
+                        //visible: currtag.text.includes(filtering.text) //staro filtriranje
+                        height: tagrow.height //currtag.text.includes(filtering.text) ? tagrow.height : 0 //staro filtriranje
                         width: parent.width
                         color:  ListView.isCurrentItem ? "lightsteelblue" : "transparent"
                         radius: 5
