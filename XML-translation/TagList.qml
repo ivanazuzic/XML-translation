@@ -6,6 +6,7 @@ import Tag 1.0
 
 
 Row {
+    id: parentRow
     focus: true
 
     Keys.onDownPressed: {
@@ -18,6 +19,10 @@ Row {
             list.currentIndex--
         }
     }
+    Keys.onTabPressed: {
+        translationfield.forceActiveFocus()
+    }
+
     width: parent.width
     height: parent.height
     spacing: 5
@@ -132,6 +137,10 @@ Row {
                         if (list.count > 0) list.model.setData(list.model.index(list.currentIndex, 0), translationfield.text, 2);
                     }
                     selectByMouse: true
+
+                    Keys.onTabPressed: {
+                        parentRow.forceActiveFocus()
+                    }
                 }
             }
         }

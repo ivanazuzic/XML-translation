@@ -6,6 +6,10 @@ import QtQuick.Dialogs 1.3
 //import Tag 1.0
 
 ApplicationWindow {
+    onActiveFocusItemChanged: {
+        print("active focus:", activeFocusItem)
+    }
+
     visible: true
     width: 640
     height: 480
